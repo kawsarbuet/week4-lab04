@@ -1,0 +1,6 @@
+source_url = "https://api.frankfurter.app/2024-01-01..2024-06-30?from=CAD&to=USD,EUR,GBP"
+timeout = 10
+output_folder = "data/processed"
+seed = 42
+sample_size = 5
+log_level = "INFO"

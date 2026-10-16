@@ -1,34 +1,38 @@
-from datetime import datetime, date
+from datetime import date, datetime
+from math import isfinite
+
+from .errors import DataError
 
 
 def parse_date(dstr: str) -> date:
-    return datetime.strptime(dstr, "%Y-%m-%d").date()
+    try:
+        return datetime.strptime(dstr, "%Y-%m-%d").date()
+    except (TypeError, ValueError) as error:
+        raise DataError("Invalid FX date: %s" % dstr) from error
 
 
 class Record:
-    """
-    Represents a single FX record: one date and its currency rate map.
-    Cleans data in __init__.
-    """
+    """One FX date and its valid currency rates."""
 
-    def __init__(self, date_str, rate_map):
+    def __init__(self, date_str: str, rate_map: object) -> None:
         self.date = parse_date(date_str)
-
         if not isinstance(rate_map, dict):
-            raise ValueError("Rate map must be a dict.")
-
-        cleaned = {}
-        for cur, val in rate_map.items():
-            try:
-                cleaned[cur] = float(val)
-            except Exception:
+            raise DataError("Rate map must be a dictionary")
+        cleaned: dict[str, float] = {}
+        for currency, value in rate_map.items():
+            if not isinstance(currency, str):
                 continue
-
+            try:
+                if isinstance(value, bool):
+                    continue
+                number = float(value)
+            except (TypeError, ValueError, OverflowError):
+                continue
+            if isfinite(number):
+                cleaned[currency] = number
         if not cleaned:
-            raise ValueError("Record has no valid rates.")
-
+            raise DataError("Record has no valid rates")
         self.rates = cleaned
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Record({self.date.isoformat()}, {self.rates})"
-
