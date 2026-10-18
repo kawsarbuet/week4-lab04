@@ -3,7 +3,6 @@ import logging
 import platform
 from dataclasses import asdict
 from importlib.metadata import PackageNotFoundError, version
-from pathlib import Path
 from typing import Any
 
 from .config import Settings
@@ -40,7 +39,9 @@ def write_reports(summary: dict[str, Any], settings: Settings) -> None:
         metadata = {
             "settings": {**asdict(settings), "output_folder": str(folder)},
             "python_version": platform.python_version(),
-            "tool_versions": {name: tool_version(name) for name in ("pytest", "mypy", "ruff")},
+            "tool_versions": {
+                name: tool_version(name) for name in ("pytest", "mypy", "ruff")
+            },
         }
         (folder / "run_info.json").write_text(
             json.dumps(metadata, indent=2) + "\n", encoding="utf-8"

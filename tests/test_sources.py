@@ -23,6 +23,8 @@ def test_bad_shape() -> None:
 
 def test_bad_record_logged(caplog: pytest.LogCaptureFixture) -> None:
     with caplog.at_level(logging.WARNING):
-        records = parse_records({"rates": {"bad-date": {"USD": 1}, "2024-01-01": {"USD": 1}}})
+        records = parse_records(
+            {"rates": {"bad-date": {"USD": 1}, "2024-01-01": {"USD": 1}}}
+        )
     assert len(records) == 1
     assert "Skipping invalid FX record" in caplog.text

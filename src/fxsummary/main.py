@@ -20,9 +20,15 @@ def build_summary(records: list[Record], settings: Settings) -> dict[str, Any]:
         "source_url": settings.source_url,
         "records_processed": len(records),
     }
-    for aggregation in (MonthlyAverage(), LargestSingleDayChange(), MonthWithMostMovement()):
+    for aggregation in (
+        MonthlyAverage(),
+        LargestSingleDayChange(),
+        MonthWithMostMovement(),
+    ):
         summary[type(aggregation).__name__] = aggregation.compute(records)
-    summary["featured_shows"] = featured_records(records, settings.seed, settings.sample_size)
+    summary["featured_shows"] = featured_records(
+        records, settings.seed, settings.sample_size
+    )
     return summary
 
 

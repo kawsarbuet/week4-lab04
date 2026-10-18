@@ -22,7 +22,9 @@ def test_incomplete_config(tmp_path: Path) -> None:
 
 
 def test_seed_reproducible(sample_records: list[Record]) -> None:
-    assert featured_records(sample_records, 42, 2) == featured_records(sample_records, 42, 2)
+    assert featured_records(sample_records, 42, 2) == featured_records(
+        sample_records, 42, 2
+    )
 
 
 def test_sample_too_large(sample_records: list[Record]) -> None:
@@ -33,7 +35,10 @@ def test_sample_too_large(sample_records: list[Record]) -> None:
 def test_write_reports(tmp_path: Path) -> None:
     settings = Settings("https://example.org", 10, tmp_path, 42, 2, "INFO")
     write_reports({"source_url": settings.source_url}, settings)
-    assert json.loads((tmp_path / "summary.json").read_text())["source_url"] == settings.source_url
+    assert (
+        json.loads((tmp_path / "summary.json").read_text())["source_url"]
+        == settings.source_url
+    )
     info = json.loads((tmp_path / "run_info.json").read_text())
     assert info["settings"]["seed"] == 42
     assert set(info["tool_versions"]) == {"pytest", "mypy", "ruff"}
