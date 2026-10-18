@@ -1,8 +1,9 @@
+## Libraries with Pinned Versions:
+
 ast_serialize==0.13.1
 certifi==2026.7.22
 charset-normalizer==3.5.2
 colorama==0.4.6
--e git+https://github.com/kawsarbuet/week3-lab03@3127540a1243070c9e3d97fa2bdb38c8341ef57a#egg=fxsummary
 idna==3.20
 iniconfig==2.3.1
 librt==0.16.0
@@ -19,7 +20,8 @@ typing_extensions==4.16.0
 urllib3==2.8.0
 
 
-cd path/to/your/folder (Esample: cd C:\Users\kawsa\week4-lab04)
+## Environment Setup
+cd path/to/your/folder (Example: cd C:\Users\kawsa\week4-lab04)
 
 conda env create -f environment.yml 
 conda activate yourpackage 
