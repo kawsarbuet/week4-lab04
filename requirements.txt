@@ -17,3 +17,12 @@ requests==2.34.2
 ruff==0.17.1
 typing_extensions==4.16.0
 urllib3==2.8.0
+
+
+cd path/to/your/folder (Esample: cd C:\Users\kawsa\week4-lab04)
+
+conda env create -f environment.yml 
+conda activate yourpackage 
+pip install requests pytest mypy ruff 
+pip freeze > requirements.txt 
+pip install -e .
