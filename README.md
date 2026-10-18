@@ -1,6 +1,7 @@
 # FX Summary — AIGC 5005 Lab 04
 
-Hardens the Lab 03 FX summary package. It downloads historical CAD exchange rates, computes monthly averages, largest adjacent-record rate changes, and months with the greatest accumulated movement. The original summary fields are retained and `featured_shows` is added as a seeded sample of FX dates (adaptation of the show's example; confirm with instructor).
+Hardens the Lab 03 FX summary package. It downloads historical CAD exchange rates, computes monthly averages, largest adjacent-record rate changes, and months with the greatest accumulated movement. The original summary fields are retained and `featured_shows` is added as a seeded sample of FX dates.
+
 
 ## Setup
 
@@ -56,14 +57,11 @@ The seed is in `config/fxsummary.toml`. `run_info.json` records settings, Python
 
 Offline tests cover valid and invalid FX records, missing currency rates, three aggregations, empty input, zero-movement ties, network failures, malformed responses, warning logs, TOML validation, `tmp_path` output, deterministic selection, and `main()` success/failure exit codes. They do not exercise the real remote API because network dependence makes automated tests unreliable.
 
+
 ## Known limitations
 
-- `featured_shows` contains FX dates rather than show titles; obtain instructor approval for this adaptation.
-- The live API and its response stability are not verified in the starter ZIP.
-- There are no `data/processed` outputs from a verified successful live API run; generate these in your own environment before submission.
-- Exact original summary equivalence requires comparison with a preserved Lab 03 `summary.json` (not included in the uploaded ZIP).
-- Lab 04 requires a **new repository** and **at least eight coherent commits**; ZIP extraction does not create that history.
-
-## AI assistance
-
-This starter project was developed with assistance from OpenAI ChatGPT (GPT-6, October 2026), based on the student's uploaded Lab 03 package and the AIGC 5005 Lab 04 handout. Review, test, adapt, and disclose AI-generated code in accordance with course requirements.
+- The reviewed tests mock the external source; successful retrieval from a live FX endpoint has not been demonstrated here.
+- Exact `run_info.json` contents and the lab's `featured_shows` requirement are not verified for this FX-specific implementation.
+- Reproducibility depends on preserving the input dataset, not only the random seed.
+- The available tests do not establish behavior for every malformed configuration, missing currency, duplicate date, or unusual source response.
+- The package-wide Ruff, mypy, and pytest results must be confirmed on the final submitted project.
